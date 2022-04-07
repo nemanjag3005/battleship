@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
   SQUARE_STATE,
@@ -60,15 +60,39 @@ const PlayerBoard = ({
     }
   }
   let squares = layout.map((square, index) => {
-    return <View></View>;
+    return (
+      <Pressable
+        onPress={() => {
+          if (canPlaceCurrentShip) {
+            placeShip(currentlyPlacing);
+          }
+        }}
+      >
+        <View style={styles.square} key={`square-${index}`}></View>
+      </Pressable>
+    );
   });
   return (
     <View>
-      <Text>PlayerBoard</Text>
+      <Text>You</Text>
+      <View style={styles.board}>{squares}</View>
     </View>
   );
 };
 
 export default PlayerBoard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  board: {
+    width: 40,
+    height: 40,
+    borderWidth: 2,
+    borderColor: "gray",
+    flex: 1,
+    flexWrap: "wrap",
+  },
+  square: {
+    width: "10%",
+    height: "10%",
+  },
+});
