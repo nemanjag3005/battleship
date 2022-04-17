@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const LogInScreen = () => {
+const LogInScreen = ({ startPlay }) => {
   return (
     <View>
-      <Text>LogInScreen</Text>
+      <Text>Battleship</Text>
+      <Button onPress={startPlay} title="Play" />
     </View>
   );
 };
