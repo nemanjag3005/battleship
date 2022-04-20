@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Game from "./Components/Game/Game";
+import Constants from "expo-constants";
 
 export default function App() {
   const handleLogIn = () => {};
@@ -16,6 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    paddingBottom: 20,
+    paddingTop: Constants.statusBarHeight,
     justifyContent: "center",
   },
 });
