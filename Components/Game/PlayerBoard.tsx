@@ -46,7 +46,6 @@ const PlayerBoard = ({
 
   if (isPlacingOverBoard) {
     if (canPlaceCurrentShip) {
-      console.log("yes");
       layout = placeEntityinLayout(layout, currentlyPlacing, SQUARE_STATE.ship);
     } else {
       let forbiddenShip = {
@@ -65,9 +64,13 @@ const PlayerBoard = ({
       <Pressable
         key={`square-${index}`}
         onPress={() => {
-          console.log(currentlyPlacing.position);
+          if (currentlyPlacing) {
+            setCurrentlyPlacing({
+              ...currentlyPlacing,
+              position: indexToCoords(index),
+            });
+          }
           if (canPlaceCurrentShip) {
-            console.log("yes");
             placeShip(currentlyPlacing);
           }
         }}

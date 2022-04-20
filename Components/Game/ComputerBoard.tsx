@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     width: 39.8,
     height: 39.8,
     borderWidth: 1,
-    backgroundColor: "blue",
+    backgroundColor: "#fafafa",
     borderColor: "lightgray",
   },
   sunk: {
