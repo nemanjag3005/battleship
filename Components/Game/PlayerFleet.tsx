@@ -29,13 +29,13 @@ const PlayerFleet = ({
   );
   let playButton = (
     <View>
-      <Text>Ships are in formation.</Text>
+      <Text style={styles.text}>Ships are in formation.</Text>
       <Button onPress={startTurn} title="Start Game" />
     </View>
   );
   return (
     <View>
-      <Text>PlayerFleet</Text>
+      <Text style={styles.text}>Your Ships</Text>
       {availableShips.length > 0 ? fleet : playButton}
     </View>
   );
@@ -43,4 +43,12 @@ const PlayerFleet = ({
 
 export default PlayerFleet;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
+    color: "red",
+    fontWeight: "bold",
+    paddingBottom: 7,
+    paddingTop: 10,
+  },
+});

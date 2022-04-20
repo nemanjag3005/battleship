@@ -46,6 +46,7 @@ const PlayerBoard = ({
 
   if (isPlacingOverBoard) {
     if (canPlaceCurrentShip) {
+      console.log("yes");
       layout = placeEntityinLayout(layout, currentlyPlacing, SQUARE_STATE.ship);
     } else {
       let forbiddenShip = {
@@ -62,19 +63,34 @@ const PlayerBoard = ({
   let squares = layout.map((square, index) => {
     return (
       <Pressable
+        key={`square-${index}`}
         onPress={() => {
+          console.log(currentlyPlacing.position);
           if (canPlaceCurrentShip) {
+            console.log("yes");
             placeShip(currentlyPlacing);
           }
         }}
       >
-        <View style={styles.square} key={`square-${index}`}></View>
+        <View
+          style={
+            stateToClass[square] === "empty"
+              ? styles.empty
+              : stateToClass[square] === "ship"
+              ? styles.ship
+              : stateToClass[square] === "hit"
+              ? styles.hit
+              : stateToClass[square] === "miss"
+              ? styles.miss
+              : styles.sunk
+          }
+        ></View>
       </Pressable>
     );
   });
   return (
     <View>
-      <Text>You</Text>
+      <Text style={styles.text}>You</Text>
       <View style={styles.board}>{squares}</View>
     </View>
   );
@@ -84,15 +100,54 @@ export default PlayerBoard;
 
 const styles = StyleSheet.create({
   board: {
-    width: 40,
-    height: 40,
-    borderWidth: 2,
+    width: 400,
+    height: 400,
+    borderWidth: 1,
+    margin: 1,
     borderColor: "gray",
-    flex: 1,
+    flexDirection: "row",
     flexWrap: "wrap",
   },
-  square: {
-    width: "10%",
-    height: "10%",
+  empty: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "#fafafa",
+    borderColor: "lightgray",
+  },
+  hit: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "red",
+    borderColor: "lightgray",
+  },
+  miss: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "gray",
+    borderColor: "lightgray",
+  },
+  ship: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "blue",
+    borderColor: "lightgray",
+  },
+  sunk: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "darkgray",
+    borderColor: "lightgray",
+  },
+  text: {
+    fontSize: 16,
+    color: "red",
+    fontWeight: "bold",
+    paddingBottom: 5,
+    paddingTop: 10,
   },
 });

@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
   stateToClass,
@@ -68,9 +68,8 @@ const ComputerBoard = ({
 
   let compSquares = compLayout.map((square, index) => {
     return (
-      <Button
+      <Pressable
         key={`comp-square-${index}`}
-        ref={`comp-square-${index}`}
         onPress={() => {
           if (playerCanFire && !alreadyHit(index)) {
             const newHits = fireTorpedo(index);
@@ -79,17 +78,83 @@ const ComputerBoard = ({
             handleComputerTurn();
           }
         }}
-      />
+      >
+        <View
+          style={
+            stateToClass[square] === "empty"
+              ? styles.empty
+              : stateToClass[square] === "ship"
+              ? styles.ship
+              : stateToClass[square] === "hit"
+              ? styles.hit
+              : stateToClass[square] === "miss"
+              ? styles.miss
+              : styles.sunk
+          }
+        ></View>
+      </Pressable>
     );
   });
   return (
     <View>
-      <Text>Computer</Text>
-      <View>{compSquares}</View>
+      <Text style={styles.text}>Computer</Text>
+      <View style={styles.board}>{compSquares}</View>
     </View>
   );
 };
 
 export default ComputerBoard;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  board: {
+    width: 400,
+    height: 400,
+    borderWidth: 1,
+    margin: 1,
+    borderColor: "gray",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  empty: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "#fafafa",
+    borderColor: "lightgray",
+  },
+  hit: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "red",
+    borderColor: "lightgray",
+  },
+  miss: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "gray",
+    borderColor: "lightgray",
+  },
+  ship: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "blue",
+    borderColor: "lightgray",
+  },
+  sunk: {
+    width: 39.8,
+    height: 39.8,
+    borderWidth: 1,
+    backgroundColor: "darkgray",
+    borderColor: "lightgray",
+  },
+  text: {
+    fontSize: 16,
+    color: "red",
+    fontWeight: "bold",
+    paddingBottom: 5,
+    paddingTop: 10,
+  },
+});

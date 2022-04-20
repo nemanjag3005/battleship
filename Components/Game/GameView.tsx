@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import PlayerFleet from "./PlayerFleet";
 import PlayerBoard from "./PlayerBoard";
@@ -28,47 +28,55 @@ const GameView = ({
   setComputerShips,
 }) => {
   return (
-    <View>
-      {gameState !== "placement" ? (
-        <PlayerStats
-          gameState={gameState}
-          hitsByComputer={hitsByComputer}
-          hitsByPlayer={hitsByPlayer}
-          winner={winner}
-          startAgain={startAgain}
-        />
-      ) : (
-        <PlayerFleet
-          availableShips={availableShips}
-          selectShip={selectShip}
+    <ScrollView>
+      <View style={styles.gamescreen}>
+        {gameState !== "placement" ? (
+          <PlayerStats
+            gameState={gameState}
+            hitsByComputer={hitsByComputer}
+            hitsByPlayer={hitsByPlayer}
+            winner={winner}
+            startAgain={startAgain}
+          />
+        ) : (
+          <PlayerFleet
+            availableShips={availableShips}
+            selectShip={selectShip}
+            currentlyPlacing={currentlyPlacing}
+            startTurn={startTurn}
+            startAgain={startAgain}
+          />
+        )}
+        <PlayerBoard
           currentlyPlacing={currentlyPlacing}
-          startTurn={startTurn}
-          startAgain={startAgain}
+          setCurrentlyPlacing={setCurrentlyPlacing}
+          rotateShip={rotateShip}
+          placeShip={placeShip}
+          placedShips={placedShips}
+          hitsByComputer={hitsByComputer}
         />
-      )}
-      <PlayerBoard
-        currentlyPlacing={currentlyPlacing}
-        setCurrentlyPlacing={setCurrentlyPlacing}
-        rotateShip={rotateShip}
-        placeShip={placeShip}
-        placedShips={placedShips}
-        hitsByComputer={hitsByComputer}
-      />
-      <ComputerBoard
-        computerShips={computerShips}
-        changeTurn={changeTurn}
-        gameState={gameState}
-        hitComputer={hitByComputer}
-        hitsByPlayer={hitsByPlayer}
-        setHitsByPlayer={setHitsByPlayer}
-        handleComputerTurn={handleComputerTurn}
-        checkIfGameOver={checkIfGameOver}
-        setComputerShips={setComputerShips}
-      />
-    </View>
+        <ComputerBoard
+          computerShips={computerShips}
+          changeTurn={changeTurn}
+          gameState={gameState}
+          hitComputer={hitByComputer}
+          hitsByPlayer={hitsByPlayer}
+          setHitsByPlayer={setHitsByPlayer}
+          handleComputerTurn={handleComputerTurn}
+          checkIfGameOver={checkIfGameOver}
+          setComputerShips={setComputerShips}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 export default GameView;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  gamescreen: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+});
